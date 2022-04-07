@@ -2,7 +2,7 @@
 Endocytosis of nanoparticles using the Cooke-Deserno potential.
 
 
-## Step 3: Put the system together
+## Step 1: Put the system together
 
 [starter.py](starter.py) will create a spherical nanoparticle with n ligands and ε interaction strength. It is currently set up to be run as a batch job, reproducing the results from the following paper: <div class="csl-entry">Vácha, R., Martinez-Veracoechea, F. J., &#38; Frenkel, D. (2011). Receptor-mediated endocytosis of nanoparticles of various shapes. <i>Nano Letters</i>, <i>11</i>(12), 5391–5395. https://doi.org/10.1021/nl2030213</div>
 
@@ -10,7 +10,7 @@ These files can be created in batch and by running the [collect.sh](colelct.sh) 
 
 Feel free to create your own nanoparticles with various distributions of ligands on the surface.
 
-## Step 4: Run in LAMMPS
+## Step 2: Run in LAMMPS
 
 The [lipid.in](lipid.in) file will run the membrane and particle in LAMMPS.
 
