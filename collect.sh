@@ -16,7 +16,6 @@ do
         sed -e "s/$res/$val/" starter.py > start1.py
         sed -e "s/$res2/$val2/" start1.py > start.py
         python start.py
-        qsub subfile.pbs
         cd ..
     done
     cd ..
