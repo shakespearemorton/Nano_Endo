@@ -28,7 +28,7 @@ The [lipid.in](lipid.in) file will run the membrane and particle in LAMMPS.
 
 ## Caveat:
 
-In the original simulations done by Vácha et al, a cutoff was put in place to reduce the computational time for the tail-tail potential. This cutoff is not implemented here, and as a result there is a tendency for endocytosed particles to stay next to the membrane. Videos of this can be seen in the images folder.
+In the original simulations done by Vácha et al, a cutoff was put in place to reduce the computational time for the tail-tail potential. This cutoff is not implemented here, and as a result there is a tendency for endocytosed particles to stay next to the membrane. Snapshots of this can be seen in the images folder, where [full.png](images/full.png) shows the simulation and interactions between lipid tails bound to the nanoparticle. The extra lip interacting with the membrane can cause lack of diffusion of the endocytosed particle or bending of the membrane post-endocytosis.
 
 ## Thanks:
 
