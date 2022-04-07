@@ -13,7 +13,7 @@ do
         mkdir $val2
         cd $val2
         cp ../../* .
-        sed -e "s/$res/$val/" _start.py > start1.py
+        sed -e "s/$res/$val/" starter.py > start1.py
         sed -e "s/$res2/$val2/" start1.py > start.py
         python start.py
         qsub subfile.pbs
