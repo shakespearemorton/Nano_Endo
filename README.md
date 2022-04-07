@@ -1,14 +1,6 @@
 # Nano_Endo
 Endocytosis of nanoparticles using the Cooke-Deserno potential.
 
-## Step 1: Create a membrane
-
-Run [membrane.py](membrane.py), and set the size of your membrane. The size is related to the box size of the system, and lipids are placed on an HCP lattice.
-Larger membranes may need more time to equilibrate, or may be unstable. 
-
-## Step 2: Equilibrate Membrane
-
-Use the LAMMPS code provided, [equil.in](equil.in) to equilibrate the membrane. Again, larger membranes take longer to relax. If you do create your own membrane, please be sure to change the name in [starter.py](starter.py) and [lipid.in](lipid.in).
 
 ## Step 3: Put the system together
 
@@ -29,6 +21,17 @@ The [lipid.in](lipid.in) file will run the membrane and particle in LAMMPS.
 ## Caveat:
 
 In the original simulations done by Vácha et al, a cutoff was put in place to reduce the computational time for the tail-tail potential. This cutoff is not implemented here, and as a result there is a tendency for endocytosed particles to stay next to the membrane. Snapshots of this can be seen in the images folder, where [full.png](images/full.png) shows the simulation and interactions between lipid tails bound to the nanoparticle. The extra lip interacting with the membrane can cause lack of diffusion of the endocytosed particle or bending of the membrane post-endocytosis.
+
+## Tools:
+### Create a membrane
+
+Run [membrane.py](membrane.py), and set the size of your membrane. The size is related to the box size of the system, and lipids are placed on an HCP lattice.
+Larger membranes may need more time to equilibrate, or may be unstable. 
+
+### Equilibrate Membrane
+
+Use the LAMMPS code provided, [equil.in](equil.in) to equilibrate the membrane. Again, larger membranes take longer to relax. If you do create your own membrane, please be sure to change the name in [starter.py](starter.py) and [lipid.in](lipid.in). You will have to alter the dump file in [equil.in](equil.in) to produce your membrane restart.
+
 
 ## Thanks:
 
