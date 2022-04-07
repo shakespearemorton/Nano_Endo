@@ -36,7 +36,7 @@ def Tail_forces(b, r):
     Force = - epsilon * math.pi * val1 / (2 * wca)
   return Force
 
-def tabs(w_cut,eps):
+def tabs(w_cut,eps=1):
     global sigma
     global epsilon
     global r_cut
