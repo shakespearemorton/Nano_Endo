@@ -29,3 +29,9 @@ The [lipid.in](lipid.in) file will run the membrane and particle in LAMMPS.
 ## Caveat:
 
 In the original simulations done by Vácha et al, a cutoff was put in place to reduce the computational time for the tail-tail potential. This cutoff is not implemented here, and as a result there is a tendency for endocytosed particles to stay next to the membrane. Videos of this can be seen in the images folder.
+
+## Thanks:
+
+Thank you to Robert Vácha & Lukáš Sukeník for your guidance.
+tab_pot.py is adapted from *"Moltemplate: A Tool for Coarse-Grained Modeling of Complex Biological Matter and Soft Condensed Matter Physics", J. Mol. Biol., 2021, 433(11):166841, Jewett AI, Stelter D, Lambert J, Saladi SM, Roscioni OM; Ricci M, Autin L, Maritan M, Bashusqeh SM, Keyes T, Dame RT; Shea J-E, Jensen GJ, Goodsell DS*
+[https://doi.org/10.1016/j.jmb.2021.166841](https://doi.org/10.1016/j.jmb.2021.166841)
