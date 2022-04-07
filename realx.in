@@ -1,0 +1,71 @@
+# LAMMPS input file
+# Unorganised Lipid Bilayer
+
+# ----- Variables -----
+
+variable K equal 30.0
+variable K2 equal 10.0
+variable R0 equal 1.5
+variable R1 equal 180
+variable T equal 1.00
+variable r_damp equal 1000
+variable r_random equal 2784
+variable step equal 100000
+variable image equal 500000
+variable dt equal 0.01
+
+# ----- Initialisation -----
+
+units lj
+boundary p p p
+atom_style full
+bond_style      hybrid fene
+angle_style     hybrid harmonic
+special_bonds   lj 0.0 1.0 1.0
+timestep ${dt}
+processors      * * 1 map xyz
+
+# ----- Atom Definition -----
+
+read_data membrane.txt
+
+# ----- Force Fields -----
+
+bond_coeff 1 fene ${K} ${R0} 1.0 1.0
+angle_coeff 1 harmonic ${K2} ${R1}
+
+pair_style      hybrid table linear 600
+pair_modify     shift yes
+
+pair_coeff      * * table tabulated_potential.dat PART_TAIL
+pair_coeff      3 * table tabulated_potential.dat PART_HEAD
+pair_coeff      3 4 table tabulated_potential.dat PART_TAIL
+pair_coeff      1 1 table tabulated_potential.dat HEAD_HEAD
+pair_coeff      1 2 table tabulated_potential.dat HEAD_TAIL
+pair_coeff      2 2 table tabulated_potential.dat TAIL_TAIL
+pair_coeff      1 3 table tabulated_potential.dat HEAD_HEAD
+pair_coeff	2 3 table tabulated_potential.dat HEAD_TAIL
+pair_coeff	3 3 table tabulated_potential.dat HEAD_HEAD
+
+
+
+# ----- Data Collection ------
+
+write_data data.start
+#dump            0 all custom ${step} *.dump id c_cm[*]
+#dump myDump all xtc ${image} file.xtc
+dump 		1 all custom ${image} *.dump id type x y z
+thermo ${step}
+thermo_style custom step temp press pxx pyy pzz vol lx ly lz
+
+
+# ----- Minimize System -----
+
+minimize 1.0e-7 1.0e-9 100000 300000
+
+velocity all create 1.0 12345
+
+fix fxlan all langevin  1.0  1.0  50.0   48279
+fix         barostat all nph x 0 0 1000 y 0 0 1000 couple xy
+
+run           2000000
