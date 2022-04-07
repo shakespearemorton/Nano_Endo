@@ -74,7 +74,7 @@ balance 1.1 rcb
 # ----- Rigid Bodies ------
 
 neigh_modify exclude group particle particle
-fix		set particle rigid/nve molecule langevin 1.0 1.0 1000 RANDOM
+fix		set particle rigid/nve molecule langevin 1.0 1.0 1000 ${r_random}
 
 # ----- Data Collection ------
 
@@ -87,7 +87,7 @@ thermo_style custom step temp press pxx pyy pzz vol lx ly lz
 minimize   1.0e-4 1.0e-6 100 1000
 velocity    memb create 0.2 12345
 fix 		proce all balance 1000 1.1 rcb
-fix         thermostat memb langevin  1.0  1.0  1.0   RANDOM
+fix         thermostat memb langevin  1.0  1.0  1.0   ${r_random}
 fix         barostat memb nph x 0 0 1000 y 0 0 1000 couple xy
 
 run 15000000

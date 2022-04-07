@@ -4,7 +4,11 @@ from scipy.spatial.transform import Rotation
 
 def rescale(r1,r):
   mod = np.sqrt( ( r1**2 ).sum() )
-  teta = np.arctan( r1[ 1 ]  / r1[ 0 ] )
+  if r1[0] == 0:
+        teta = np.pi/2
+  else:
+    teta = np.arctan( r1[ 1 ]  / r1[ 0 ] )
+    
   if r1[ 0 ] > 0:
     phi = np.arccos( r1[ 2 ] / mod )
   else:
@@ -35,4 +39,4 @@ def sphere(r,ppsa,use = 0,num = 0):
         z = math.sin(theta) * radius
         points.append(rescale(np.array([x,y,z]),r))
 
-    return points
+    return np.array(points)

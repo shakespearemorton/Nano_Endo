@@ -26,9 +26,9 @@ def writeParticle(core,binding_f,binding_style,memb):
         t=0
         while t < nParticles:
             if t in receps:
-                g.write( "{0:.0f} 1 4 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, star[ t, 0 ], star[ t, 1 ], star[ t, 2 ] ) )
+                g.write( "{0:.0f} 1 4 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, core[ t, 0 ], core[ t, 1 ], core[ t, 2 ] ) )
             else:
-                g.write( "{0:.0f} 1 5 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, star[ t, 0 ], star[ t, 1 ], star[ t, 2 ] ) )
+                g.write( "{0:.0f} 1 5 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, core[ t, 0 ], core[ t, 1 ], core[ t, 2 ] ) )
             t+=1
 
         g.close()
