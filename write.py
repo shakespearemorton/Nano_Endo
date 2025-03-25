@@ -34,11 +34,9 @@ def writeParticle(core,binding_f,binding_style,memb):
         g.close()
     return
 
-def writeMembrane(data):
-    box_max = np.max(data[:,2:5],axis=0)
-    box_min = np.min(data[:,2:5],axis=0)
-    with open( 'membrane_restart.txt', 'w' ) as g:
-        nParticles = len(data)
+def writeMembrane(pos,receptor_f,boxx,boxy,boxz):
+    with open( 'membrane.txt', 'w' ) as g:
+        nParticles = len(pos)
         bonds = nParticles*(2/3)
         angles = nParticles/3
         g.write("#NP 10*10*20\n#second line will be skipped\n\n" )
@@ -47,14 +45,30 @@ def writeMembrane(data):
         g.write("{0:.0f}    angles\n".format( angles))
         g.write("0  dihedrals\n" )
         g.write("0  impropers\n\n" )
-        g.write("5 atom types\n1 bond types\n1 angle types\n0  dihedral types\n0  improper types\n\n")
-        g.write("{0:.2f} {1:.2f} xlo xhi\n{2:.2f} {3:.2f} ylo yhi\n{4:.2f} {5:.2f} zlo zhi".format(box_min[0],box_max[0],box_min[1],box_max[1],box_min[2],box_max[2]))
-        g.write("\n\nMasses\n\n1 1.0\n2 1.0\n3 1.0\n4 1.0\n5 1.0\n")
+        g.write("7 atom types\n1 bond types\n1 angle types\n0  dihedral types\n0  improper types\n\n")
+        g.write("0 {0:.2f} xlo xhi\n0 {1:.2f} ylo yhi\n-{2:.2f} {2:.2f} zlo zhi".format(boxx,boxy,boxz/2))
+        g.write("\n\nMasses\n\n1 1.0\n2 1.0\n3 1.0\n4 1.0\n5 1.0\n6 1.0\n7 1.0\n")
         g.write("\nAtoms\n\n")
-        t = 0
-        for i in data:
-            g.write( "{0:.0f} {1:.0f} {2:.0f} 0.0 {3:.3f} {4:.3f} {5:.3f} \n".format( t+1, t//3, i[1], i[2], i[3], i[4] ) )
+        t=0
+        receps = []
+        ops = list(range(len(pos)))
+        while len(receps) < int(len(pos)*receptor_f):
+            rch = random.choice(range(len(ops)))
+            receps.append(ops[rch])
+            ops.pop(rch)
+        mol = 1
+        while t < nParticles:
+            if int(t/3) in receps:
+                g.write( "{0:.0f} {4:.0f} 3 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, pos[ t, 0 ], pos[ t, 1 ], pos[ t, 2 ],mol ) )
+                t+=1
+            else:
+                g.write( "{0:.0f} {4:.0f}  1 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, pos[ t, 0 ], pos[ t, 1 ], pos[ t, 2 ],mol ) )
+                t+=1
+            g.write( "{0:.0f} {4:.0f} 2 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, pos[ t, 0 ], pos[ t, 1 ], pos[ t, 2 ],mol ) )
             t+=1
+            g.write( "{0:.0f} {4:.0f} 2 0.0 {1:.3f} {2:.3f} {3:.3f} \n".format( t+1, pos[ t, 0 ], pos[ t, 1 ], pos[ t, 2 ],mol ) )
+            t+=1
+            mol+=1
         g.write ("\nBonds\n\n")
         t = 0
         n=0
